@@ -2,16 +2,14 @@ const fs = require("fs");
 const chalk = require("chalk");
 
 // Get all Notes
-const getNotes = function() {
+const getNotes = () => {
   return "The note you have is ready for you.";
 };
 
 // Add Notes
-const addNote = function(title, body) {
+const addNote = (title, body) => {
   const notes = loadNotes();
-  const dublipcateNotes = notes.filter(function(note) {
-    return note.title === title;
-  });
+  const dublipcateNotes = notes.filter((note) => note.title === title);
 
   // Check if the given title is not taken already
   if (dublipcateNotes.length !== 0) {
@@ -27,7 +25,7 @@ const addNote = function(title, body) {
 };
 
 // Loading Notes
-const loadNotes = function() {
+const loadNotes = () => {
   try {
     const dataBuffer = fs.readFileSync("notes.json");
     const dataJSON = dataBuffer.toString();
@@ -38,19 +36,17 @@ const loadNotes = function() {
 };
 
 // Saving Notes to Json file
-const saveNotes = function(notes) {
+const saveNotes = (notes) => {
   const dataJSON = JSON.stringify(notes);
   fs.writeFileSync("notes.json", dataJSON);
 };
 
 // Removing a given Note
-const removeNote = function(title) {
+const removeNote = (title) => {
   const notes = loadNotes();
 
   // Get all notes that the title is not == to given title and save new array
-  const notesToKeep = notes.filter(function(note) {
-    return note.title !== title;
-  });
+  const notesToKeep = notes.filter((note) => note.title !== title);
   if (notes.length > notesToKeep.length) {
     console.log(chalk.white.bgGreen("Notes removed successfully!"));
     saveNotes(notesToKeep);
